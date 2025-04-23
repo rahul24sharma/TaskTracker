@@ -7,6 +7,7 @@ import NewsLetter from "./NewsLetter";
 import { useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
+import { FaTrashAlt, FaEdit } from 'react-icons/fa';
 
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -381,7 +382,8 @@ const Home = () => {
                                           onClick={() => handleEdit(task)}
                                           title="Edit"
                                         >
-                                          ✏️
+                                                <FaEdit />
+
                                         </button>
                                       )}
                                       <button
@@ -391,7 +393,8 @@ const Home = () => {
                                         }
                                         title="Delete"
                                       >
-                                        🗑️
+      <FaTrashAlt />
+
                                       </button>
                                     </>
                                   )}

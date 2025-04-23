@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./task-frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    environment:
+      - VITE_API_URL=http://backend:3001  #
+    networks:
+      - app-network
+    restart: unless-stopped
+
+
+  backend:
+    build:
+      context: ./task-backend
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=mysql
+      - DB_USER=rahul
+      - DB_PASSWORD=Lionelmessi10@
+      - DB_NAME=tasktracker
+    depends_on:
+      - mysql
+    networks:
+      - app-network
+    restart: unless-stopped
+
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: tasktracker
+      MYSQL_USER: rahul
+      MYSQL_PASSWORD: Lionelmessi10@
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - app-network
+    restart: unless-stopped
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mysql-data:
