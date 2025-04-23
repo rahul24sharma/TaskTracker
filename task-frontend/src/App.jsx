@@ -33,8 +33,12 @@ const App = () => {
           console.log(role)
           dispatch(setAuth({ user, role }));
           window.localStorage.setItem("loggedIn", true)
-
-        } else {
+          if (user && user.name) {
+            window.localStorage.setItem("user", user.name);
+          } else {
+            console.error("User name is not available.");
+          }
+                  } else {
           dispatch(logout());
           localStorage.removeItem("token")
           localStorage.removeItem("loggedIn")

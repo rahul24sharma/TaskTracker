@@ -18,12 +18,15 @@ const Home = () => {
   const [editingTaskId, setEditingTaskId] = useState(null);
   const [editedTask, setEditedTask] = useState({ title: "", description: "" });
   const [selectedTasks, setSelectedTasks] = useState([]);
+  const [formError, setFormError] = useState("");
 
   // Pagination states
   const [currentPage, setCurrentPage] = useState(1);
   const [tasksPerPage] = useState(5);
 
   const role = localStorage.getItem("role");
+  const user = localStorage.getItem("user");
+  console.log(user)
 
   const handleSelectTask = (taskId) => {
     setSelectedTasks((prev) =>
@@ -59,7 +62,6 @@ const Home = () => {
       } finally {
         setIsLoading(false);
       }
-      
     };
 
     fetchData();
@@ -67,9 +69,12 @@ const Home = () => {
 
   const handleAddTask = async () => {
     if (!title || !description) {
+      setFormError("Title and description are required!");
       toast.error("Title and description are required!");
       return;
     }
+
+
 
     try {
       const res = await axios.post(
@@ -90,6 +95,7 @@ const Home = () => {
     } catch (error) {
       console.error("Error adding task:", error);
       toast.error("Failed to add task. Please try again later.");
+      setFormError("");
     }
   };
 
@@ -163,7 +169,7 @@ const Home = () => {
   const handleDragEnd = ({ destination, source }) => {
     // 1) dropped outside the list
     if (!destination) return;
-  
+
     // 2) no position change
     if (
       destination.droppableId === source.droppableId &&
@@ -171,16 +177,15 @@ const Home = () => {
     ) {
       return;
     }
-  
+
     // 3) reorder a *copy* of the current tasks
     const reordered = Array.from(result);
     const [moved] = reordered.splice(source.index, 1);
     reordered.splice(destination.index, 0, moved);
-  
+
     setResult(reordered);
     toast.success("Task order updated");
   };
-  
 
   if (!isAuthorized) return <Navigate to="/login" />;
 
@@ -236,6 +241,11 @@ const Home = () => {
               >
                 Add
               </button>
+              {formError && (
+                <div data-testid="form-error" className="text-red-600 mt-2">
+                  {formError}
+                </div>
+              )}
             </div>
           )}
 
