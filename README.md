@@ -37,6 +37,7 @@ npm start: Start the production server
 For Frontend
 npm run dev: Start the development server with nodemon
 For Frontend tasks
+cd task-frontend
 npm test: Run tests
 
 Docker Commands
