@@ -26,7 +26,6 @@ const Home = () => {
 
   const role = localStorage.getItem("role");
   const user = localStorage.getItem("user");
-  console.log(user);
 
   const handleSelectTask = (taskId) => {
     setSelectedTasks((prev) =>

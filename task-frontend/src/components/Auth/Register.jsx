@@ -68,10 +68,6 @@ const Register = () => {
         }
       );
   
-      console.log("Full registration response:", data);
-      console.log("Received token:", data.token);
-      console.log("Received user:", data.user);
-      console.log("Received role:", data.user.role);
   
     
   
@@ -104,7 +100,6 @@ const Register = () => {
   };
 
   if (isAuthorized) {
-    console.log(isAuthorized)
     return <Navigate to={"/"} />;
   }
   return (

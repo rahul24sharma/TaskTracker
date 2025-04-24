@@ -28,9 +28,7 @@ const App = () => {
           withCredentials: true,
         });
         const { user, role } = response.data;
-        console.log(response.data)
         if (user) {
-          console.log(role)
           dispatch(setAuth({ user, role }));
           window.localStorage.setItem("loggedIn", true)
           if (user && user.name) {

@@ -5,7 +5,6 @@ import { catchAsyncError } from "../middleware/catchAsyncError.js";
 import ErrorHandler from "../middleware/error.js";
 // Signup function
 export const signup = catchAsyncError(async (req, res) => {
-    console.log('Received body:', req.body);
 
   const { name, email, role, password } = req.body;
 
