@@ -5,7 +5,7 @@ const Banner = ({
 }) => {
   return (
     <>
-      <div className="max-w-screen-2xl container mx-auto xl:px-24 px-4 md:py-20 py-14">
+      <div className="max-w-screen-2xl container mx-auto xl:px-24 px-4 md:py-5 py-7">
         <h1 className="text-5xl font-bold text-primary mb-3">
           Start your <span className="text-blue">task tracking</span> journey
           today
