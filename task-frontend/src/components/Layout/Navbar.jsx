@@ -103,106 +103,21 @@ const Navbar = () => {
           <span>Tracker</span>
         </a>
 
-<ul className="hidden md:flex gap-12">
-  {user && user.role === "Employer" ? (
-    <>
+        <ul className="hidden md:flex gap-12">
+  {user ? (
+    user.role === "submitter" || user.role === "approver" ? (
       <li className="text-base text-primary">
         <NavLink
           to="/"
-          className={({ isActive }) => isActive ? "active" : ""}
+          className={({ isActive }) => (isActive ? "active" : "")}
         >
           Home
         </NavLink>
       </li>
-      <li className="text-base text-primary">
-        <NavLink
-          to="/job/getall"
-          className={({ isActive }) => isActive ? "active" : ""}
-        >
-          Jobs
-        </NavLink>
-      </li>
-      <li className="text-base text-primary">
-        <NavLink
-          to="/applications/me"
-          className={({ isActive }) => isActive ? "active" : ""}
-        >
-          Application
-        </NavLink>
-      </li>
-      <li className="text-base text-primary">
-        <NavLink
-          to="/job/post"
-          className={({ isActive }) => isActive ? "active" : ""}
-        >
-          Post Job
-        </NavLink>
-      </li>
-      <li className="text-base text-primary">
-        <NavLink
-          to="/job/me"
-          className={({ isActive }) => isActive ? "active" : ""}
-        >
-          My Jobs
-        </NavLink>
-      </li>
-    </>
-  ) : user && user.role === "Job Seeker" ? (
-    <>
-      <li className="text-base text-primary">
-        <NavLink
-          to="/"
-          className={({ isActive }) => isActive ? "active" : ""}
-        >
-          Home
-        </NavLink>
-      </li>
-      <li className="text-base text-primary">
-        <NavLink
-          to="/applications/me"
-          className={({ isActive }) => isActive ? "active" : ""}
-        >
-          Application
-        </NavLink>
-      </li>
-      <li className="text-base text-primary">
-        <NavLink
-          to="/job/getall"
-          className={({ isActive }) => isActive ? "active" : ""}
-        >
-          Jobs
-        </NavLink>
-      </li>
-    </>
-  ) : user && user.role === "Admin" ? (
-    <>
-      <li className="text-base text-primary">
-        <NavLink
-          to="/"
-          className={({ isActive }) => isActive ? "active" : ""}
-        >
-          Home
-        </NavLink>
-      </li>
-      <li className="text-base text-primary">
-        <NavLink
-          to="/dashboard"
-          className={({ isActive }) => isActive ? "active" : ""}
-        >
-          Dashboard
-        </NavLink>
-      </li>
-      <li className="text-base text-primary">
-        <NavLink
-          to="/users/me"
-          className={({ isActive }) => isActive ? "active" : ""}
-        >
-          Users
-        </NavLink>
-      </li>
-    </>
+    ) : null
   ) : null}
 </ul>
+
         <div className="text-base text-primary font-medium space-x-5 hidden lg:block">
           {isAuthorized ? (
             <Link

@@ -11,9 +11,9 @@ const Footer = () => {
   });
   return (
     <footer className={isAuthorized ? "footerShow" : "footerHide"}>
-      <div>&copy; HireHub</div>
+      <div>&copy; Tracker</div>
       <div>
-        <Link to={"https://github.com/sumanthreddy94/HireHub.git"} target="_blank">
+        <Link to={"https://github.com/"} target="_blank">
           <FaGithub />
         </Link>
         <Link to={"hhttps://www.linkedin.com/in/"} target="_blank">

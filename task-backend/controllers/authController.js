@@ -35,42 +35,6 @@ export const signup = catchAsyncError(async (req, res) => {
     res.status(500).json({ message: 'Error signing up', error: err.message });
   }
 });
-
-// Login function 
-// export const login = catchAsyncError(async (req, res) => {
-//     const { email, password, role } = req.body;
-  
-//     try {
-//       const user = await User.findOne({ where: { email, role } });
-  
-//       if (!user) {
-//         return res.status(401).json({ message: 'Invalid credentials' });
-//       }
-  
-//       const isMatch = await bcrypt.compare(password, user.password);
-  
-//       if (!isMatch) {
-//         return res.status(401).json({ message: 'Invalid credentials' });
-//       }
-  
-//       const token = jwt.sign(
-//         { id: user.id, role: user.role },
-//         process.env.JWT_SECRET_KEY,
-//         { expiresIn: process.env.JWT_EXPIRES_IN }
-//       );
-  
-//       res
-//         .status(200)
-//         .cookie('token', token, {
-//           httpOnly: true, 
-//           expires: new Date(Date.now() + 3600000), 
-//           sameSite: 'strict' 
-//         })
-//         .json({ message: 'Login successful', user, token });
-//     } catch (err) {
-//       res.status(500).json({ message: 'Error logging in', error: err.message });
-//     }
-//   });
   
 export const login = catchAsyncError(async (req, res) => {
   const { email, password } = req.body;       // ⬅️ role removed
