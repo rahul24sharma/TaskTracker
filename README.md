@@ -39,6 +39,7 @@ npm run dev: Start the development server with nodemon
 For Frontend tasks
 cd task-frontend
 npm test: Run tests
+docker-compose run --rm frontend npm test
 
 Docker Commands
 Build images: docker-compose build
