@@ -108,23 +108,60 @@ const Home = () => {
     }
   };
 
+  // const handleStatusChange = async (id, newStatus) => {
+  //   try {
+  //     let url = `http://localhost:3001/api/tasks/${id}/status`;
+
+  //     if (newStatus === "done") {
+  //       url = `http://localhost:3001/api/tasks/${id}/done`;
+  //     }
+
+  //     const res = await axios.put(
+  //       url,
+  //       { status: newStatus },
+  //       { withCredentials: true }
+  //     );
+
+  //     setResult((prev) =>
+  //       prev.map((task) => ((task._id || task.id) === id ? res.data : task))
+  //     );
+  //   } catch (error) {
+  //     console.error("Error updating status:", error);
+  //     toast.error("Failed to update task status");
+  //   }
+  // };
   const handleStatusChange = async (id, newStatus) => {
     try {
       let url = `http://localhost:3001/api/tasks/${id}/status`;
-
+  
       if (newStatus === "done") {
         url = `http://localhost:3001/api/tasks/${id}/done`;
       }
-
+  
+      console.log("Before API call - Task ID:", id, "New Status:", newStatus);
+      
       const res = await axios.put(
         url,
         { status: newStatus },
         { withCredentials: true }
       );
-
+      
+      console.log("API Response data:", res.data);
+      console.log("Does response include creator?", Boolean(res.data.creator));
+      console.log("Full response object:", res);
+  
+      const originalTask = result.find(task => (task._id || task.id) === id);
+      console.log("Original task before update:", originalTask);
+  
       setResult((prev) =>
-        prev.map((task) => ((task._id || task.id) === id ? res.data : task))
+        prev.map((task) => {
+          if (task.id === id) {
+            return { ...task, status: res.data.status }; 
+          }
+          return task;
+        })
       );
+      
     } catch (error) {
       console.error("Error updating status:", error);
       toast.error("Failed to update task status");
@@ -132,8 +169,9 @@ const Home = () => {
   };
 
   const handleEdit = (task) => {
-    setEditingTaskId(task._id || task.id);
-    setEditedTask({ title: task.title, description: task.description });
+    setEditingTaskId(task.id);
+    setEditedTask({ title: task.title, description: task.description,     creator: task.creator || task.User?.name || username
+    });
   };
 
   const handleSaveEdit = async (id) => {
@@ -142,9 +180,12 @@ const Home = () => {
         withCredentials: true,
       });
       setResult((prev) =>
-        prev.map((task) =>
-          (task._id || task.id) === id ? { ...task, ...editedTask } : task
-        )
+        prev.map((task) => {
+          if ((task._id || task.id) === id) {
+            return { ...task, ...res.data };
+          }
+          return task;
+        })
       );
       setEditingTaskId(null);
     } catch (error) {
@@ -389,7 +430,7 @@ const Home = () => {
                                       <button
                                         onClick={() =>
                                           handleStatusChange(
-                                            task._id || task.id,
+                                            task.id,
                                             "approved"
                                           )
                                         }
@@ -400,7 +441,7 @@ const Home = () => {
                                       <button
                                         onClick={() =>
                                           handleStatusChange(
-                                            task._id || task.id,
+                                            task.id,
                                             "rejected"
                                           )
                                         }
@@ -416,7 +457,7 @@ const Home = () => {
                                     <button
                                       onClick={() =>
                                         handleStatusChange(
-                                          task._id || task.id,
+                                          task.id,
                                           "done"
                                         )
                                       }
