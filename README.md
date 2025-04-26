@@ -10,6 +10,15 @@ Docker Compose (optional, for containerized deployment)
 Option 1: Running with Docker
 
 git clone "git@github.com:rahul24sharma/TaskTracker.git"
+Modigy .env in backend before running the aplication
+DB_NAME=
+DB_USER=
+DB_PASSWORD=
+DB_HOST=   
+JWT_SECRET_KEY=
+JWT_EXPIRES_IN=
+
+
 docker-compose up --build
 
 Access the application
