@@ -176,9 +176,10 @@ const Home = () => {
 
   const handleSaveEdit = async (id) => {
     try {
-      await axios.put(`http://localhost:3001/api/tasks/${id}`, editedTask, {
+      const res = await axios.put(`http://localhost:3001/api/tasks/${id}`, editedTask, {
         withCredentials: true,
       });
+  
       setResult((prev) =>
         prev.map((task) => {
           if ((task._id || task.id) === id) {
@@ -187,6 +188,7 @@ const Home = () => {
           return task;
         })
       );
+  
       setEditingTaskId(null);
     } catch (error) {
       if (
@@ -201,6 +203,7 @@ const Home = () => {
       setEditingTaskId(null);
     }
   };
+  
 
   const handleDragEnd = ({ destination, source }) => {
     if (!destination) return;
